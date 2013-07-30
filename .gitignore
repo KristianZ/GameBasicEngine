@@ -1,0 +1,14 @@
+# Eclipse Files … who needs them?
+bin/
+.settings/
+.classpath
+.project
+
+# No point of class files when you have java files!
+*.class
+
+# Hidden Mac Files D:
+.DS_Store*
+
+#No lib file
+lib/
