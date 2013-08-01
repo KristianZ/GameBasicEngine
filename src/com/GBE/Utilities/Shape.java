@@ -2,7 +2,6 @@ package com.GBE.Utilities;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL15.*;
-import static org.lwjgl.opengl.GL20.*;
 
 import java.nio.FloatBuffer;
 
@@ -42,19 +41,18 @@ public class Shape
 		
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
 		glBufferData(GL_ARRAY_BUFFER, buffer, GL_STATIC_DRAW);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 	
 	public void draw()
 	{
 		Texture.clear();
 		
-		glEnableVertexAttribArray(0);
-		
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
-		glVertexAttribPointer(0, 3, GL_FLOAT, false, Vertex.SIZE * 4, 0);
+		glVertexPointer(Vertex.SIZE, GL_FLOAT, 0, 0L);
 		
+		glEnableClientState(GL_VERTEX_ARRAY);
 		glDrawArrays(shape, 0, size);
-		
-		glDisableVertexAttribArray(0);
+		glDisableClientState(GL_VERTEX_ARRAY);
 	}
 }
