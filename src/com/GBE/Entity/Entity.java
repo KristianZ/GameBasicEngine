@@ -1,6 +1,6 @@
 package com.GBE.Entity;
 
-import com.GBE.Utilities.Vector3f;
+import com.GBE.Positions.Position;
 
 public interface Entity
 {
@@ -10,11 +10,7 @@ public interface Entity
 	
 	public float getLength();
 	
-	public Vector3f getLoc();
-	
-	public float getPitch();
-	
-	public float getYaw();
+	public Position getPos();
 	
 	public void render();
 }

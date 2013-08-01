@@ -1,60 +1,65 @@
 package com.GBE.Entity;
 
-import static org.lwjgl.opengl.GL11.*;
-
-import com.GBE.Utilities.Vector3f;
+import com.GBE.Positions.Position;
+import com.GBE.Positions.Vector3f;
+import com.GBE.Positions.Vertex;
+import com.GBE.Utilities.Shape;
 
 public class Cube extends StillEntity
 {
-	public Cube(float width, float height, float length, Vector3f loc, float pitch, float yaw)
-	{ super(width, height, length, loc, pitch, yaw); }
+	private Shape shape;
+	
+	public Cube(float width, float height, float length, Position pos)
+	{
+		super(width, height, length, pos);
+		
+		float x = pos.getX();
+		float y = pos.getY();
+		float z = pos.getZ();
+		
+		Vertex[] vertices = new Vertex[]
+			{
+				// Left //
+				new Vertex(new Vector3f(x, y, z)),
+				new Vertex(new Vector3f(x, y, z + length)),
+				new Vertex(new Vector3f(x, y + height, z + length)),
+				new Vertex(new Vector3f(x, y + height, z)),
+		
+				// Right //
+				new Vertex(new Vector3f(x + width, y, z)),
+				new Vertex(new Vector3f(x + width, y, z + length)),
+				new Vertex(new Vector3f(x + width, y + height, z + length)),
+				new Vertex(new Vector3f(x + width, y + height, z)),
+		
+				// Top //
+				new Vertex(new Vector3f(x, y, z)),
+				new Vertex(new Vector3f(x + width, y, z)),
+				new Vertex(new Vector3f(x + width, y, z + length)),
+				new Vertex(new Vector3f(x, y, z + length)),
+		
+				// Bottom //
+				new Vertex(new Vector3f(x, y + height, z)),
+				new Vertex(new Vector3f(x + width, y + height, z)),
+				new Vertex(new Vector3f(x + width, y + height, z + length)),
+				new Vertex(new Vector3f(x, y + height, z + length)),
+		
+				// Front //
+				new Vertex(new Vector3f(x, y, z)),
+				new Vertex(new Vector3f(x + width, y, z)),
+				new Vertex(new Vector3f(x + width, y + height, z)),
+				new Vertex(new Vector3f(x, y + height, z)),
+		
+				// Back //
+				new Vertex(new Vector3f(x, y, z + length)),
+				new Vertex(new Vector3f(x + width, y, z + length)),
+				new Vertex(new Vector3f(x + width, y + height, z + length)),
+				new Vertex(new Vector3f(x, y + height, z + length))
+			};
+		
+		shape = new Shape(Shape.QUAD, vertices);
+	}
 
 	@Override
 	public void render()
-	{
-		float x = loc.getX();
-		float y = loc.getY();
-		float z = loc.getZ();
-		
-		glColor3f(0f, 0f, 1f);
-		glBegin(GL_QUADS);
-
-			// Left //
-			glVertex3f(x, y, z);
-			glVertex3f(x, y, z + length);
-			glVertex3f(x, y + height, z + length);
-			glVertex3f(x, y + height, z);
-	
-			// Right //
-			glVertex3f(x + width, y, z);
-			glVertex3f(x + width, y, z + length);
-			glVertex3f(x + width, y + height, z + length);
-			glVertex3f(x + width, y + height, z);
-	
-			// Top //
-			glVertex3f(x, y, z);
-			glVertex3f(x + width, y, z);
-			glVertex3f(x + width, y, z + length);
-			glVertex3f(x, y, z + length);
-	
-			// Bottom //
-			glVertex3f(x, y + height, z);
-			glVertex3f(x + width, y + height, z);
-			glVertex3f(x + width, y + height, z + length);
-			glVertex3f(x, y + height, z + length);
-	
-			// Front //
-			glVertex3f(x, y, z);
-			glVertex3f(x + width, y, z);
-			glVertex3f(x + width, y + height, z);
-			glVertex3f(x, y + height, z);
-	
-			// Back //
-			glVertex3f(x, y, z + length);
-			glVertex3f(x + width, y, z + length);
-			glVertex3f(x + width, y + height, z + length);
-			glVertex3f(x, y + height, z + length);
-
-		glEnd();
-	}
+	{ shape.draw(); }
 }

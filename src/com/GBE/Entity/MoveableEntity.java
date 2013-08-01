@@ -1,18 +1,31 @@
 package com.GBE.Entity;
 
+import com.GBE.Game;
+import com.GBE.Positions.Position;
 import com.GBE.Utilities.GameClock;
-import com.GBE.Utilities.Vector3f;
 
 public abstract class MoveableEntity extends StillEntity
 {
 	protected float speed, groundHeight, velocityX, velocityY, velocityZ;
 	protected boolean jumping, falling;
 	
-	public MoveableEntity(float width, float height, float length, Vector3f loc, float pitch, float yaw, float speed)
+	public MoveableEntity(float width, float height, float length)
+	{
+		super(width, height, length);
+		this.speed = 0.01f;
+		groundHeight = pos.getY();
+		velocityX = 0;
+		velocityY = 0;
+		velocityZ = 0;
+		jumping = false;
+		falling = false;
+	}
+
+	public MoveableEntity(float width, float height, float length, Position pos)
     {
-		super(width, height, length, loc, pitch, yaw);
-		this.speed = speed;
-		groundHeight = loc.getY();
+		super(width, height, length, pos);
+		this.speed = 0.01f;
+		groundHeight = pos.getY();
 		velocityX = 0;
 		velocityY = 0;
 		velocityZ = 0;
@@ -20,6 +33,30 @@ public abstract class MoveableEntity extends StillEntity
 		falling = false;
 	}
 	
+	public float getVelocityX() {
+		return velocityX;
+	}
+
+	public float getVelocityY() {
+		return velocityY;
+	}
+
+	public float getVelocityZ() {
+		return velocityZ;
+	}
+	
+	public void setVelocityX(float velocityX) {
+		this.velocityX = velocityX;
+	}
+
+	public void setVelocityY(float velocityY) {
+		this.velocityY = velocityY;
+	}
+
+	public void setVelocityZ(float velocityZ) {
+		this.velocityZ = velocityZ;
+	}
+
 	/*			*
 	 *	Getters	*
 	 *			*/
@@ -38,12 +75,6 @@ public abstract class MoveableEntity extends StillEntity
 	/*			*
 	 *	Setters	*
 	 *			*/
-	public void setPitch(float pitch)
-	{ this.pitch = pitch; }
-	
-	public void setYaw(float yaw)
-	{ this.yaw = yaw; }
-	
 	public void setSpeed(float speed)
 	{ this.speed = speed; }
 	
@@ -62,38 +93,83 @@ public abstract class MoveableEntity extends StillEntity
 	public void moveForward()
 	{	
 		float speed = GameClock.getDelta() * this.speed;
-		loc.xPlusEquals((float) Math.sin(Math.toRadians(yaw)) * speed);
-		loc.zPlusEquals((float) -Math.cos(Math.toRadians(yaw)) * speed);
+		pos.add((float) Math.sin(Math.toRadians(pos.getYaw())) * speed, 0, 0);
+		pos.add(0, 0, (float) -Math.cos(Math.toRadians(pos.getYaw())) * speed);
 	}
 	
 	public void moveBackward()
 	{
 		float speed = GameClock.getDelta() * this.speed;
-		loc.xMinusEquals((float) Math.sin(Math.toRadians(yaw)) * speed);
-		loc.zMinusEquals((float) -Math.cos(Math.toRadians(yaw)) * speed);
+		pos.subtract((float) Math.sin(Math.toRadians(pos.getYaw())) * speed, 0, 0);
+		pos.subtract(0, 0, (float) -Math.cos(Math.toRadians(pos.getYaw())) * speed);
 	}
 	
 	public void moveRight()
 	{
 		float speed = GameClock.getDelta() * this.speed;
-		loc.xPlusEquals((float) Math.sin(Math.toRadians(yaw + 90)) * speed);
-		loc.zPlusEquals((float) -Math.cos(Math.toRadians(yaw + 90)) * speed);
+		pos.add((float) Math.sin(Math.toRadians(pos.getYaw() + 90)) * speed, 0, 0);
+		pos.add(0, 0, (float) -Math.cos(Math.toRadians(pos.getYaw() + 90)) * speed);
 	}
 	
 	public void moveLeft()
 	{
 		float speed = GameClock.getDelta() * this.speed;
-		loc.xPlusEquals((float) Math.sin(Math.toRadians(yaw - 90)) * speed);
-		loc.zPlusEquals((float) -Math.cos(Math.toRadians(yaw - 90)) * speed);
+		pos.add((float) Math.sin(Math.toRadians(pos.getYaw() - 90)) * speed, 0, 0);
+		pos.add(0, 0, (float) -Math.cos(Math.toRadians(pos.getYaw() - 90)) * speed);
+	}
+	
+	public void rotate(float yaw, float pitch)
+	{
+		pos.setYaw(pos.getYaw() + yaw);
+		float newPitch = pos.getPitch() + pitch;
+		if(newPitch < 90 && newPitch > -90) pos.setPitch(newPitch);
 	}
 	
 	public void jump()
 	{
-		if(!(falling && jumping) && loc.getY() <= groundHeight)
+		if(!(falling && jumping) && pos.getY() <= groundHeight)
 		{
 			jumping = true;
 			velocityY = 0.2f;
 		}
+	}
+	
+	public void update()
+	{
+		if(Math.abs(velocityX) >= 0.1)
+		{
+			if(velocityX < 0) velocityX += Game.getGravity();
+			else velocityX -= Game.getGravity();
+		}
+		else velocityX = 0;
+		
+		if(jumping)
+		{
+			velocityY -= Game.getGravity();
+			if(velocityY <= groundHeight)
+			{
+				jumping = false;
+				falling = true;
+			}
+		}
+		else if(falling)
+		{
+			velocityY -= Game.getGravity();
+			if(pos.getY() <= groundHeight)
+			{
+				falling = false;
+				velocityY = 0;
+			}
+		}
+		
+		if(Math.abs(velocityZ) >= 0.1)
+		{
+			if(velocityZ < 0) velocityZ += Game.getGravity();
+			else velocityZ -= Game.getGravity();
+		}
+		else velocityZ = 0;
+		
+		pos.add(velocityX, velocityY, velocityZ);
 	}
 	
 	@Override

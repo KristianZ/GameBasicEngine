@@ -50,7 +50,7 @@ public abstract class Game
 		glLoadIdentity();
 		gluPerspective(70f, (float) Display.getWidth() / (float) Display.getHeight(), 0.001f, 1000f);
 		glMatrixMode(GL_MODELVIEW);
-
+		
 		glClearColor(0.9f, 0.9f, 0.9f, 1);
 		glEnable(GL_DEPTH_TEST);
 
@@ -119,12 +119,4 @@ public abstract class Game
 	
 	public static float getGravity()
 	{ return gravity; }
-	
-	/*public static boolean collides(Entity e1, Entity e2)
-	{
-		if(e1.getX() >= e2.getX() && e1.getX() + e1.getWidth() <= e2.getX() + e2.getWidth() &&
-				e1.getY() >= e2.getY() && e1.getY() + e1.getHeight() <= e2.getY() + e2.getHeight() &&
-				e1.getZ() >= e2.getZ() && e1.getZ() + e1.getLength() <= e2.getZ() + e2.getLength()) return true;
-		return false;
-	}*/
 }

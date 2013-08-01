@@ -1,4 +1,4 @@
-package com.GBE.Utilities;
+package com.GBE.Positions;
 
 public class Vector2f
 {
@@ -78,21 +78,6 @@ public class Vector2f
 		x /= vector.getX();
 		y /= vector.getY();
 	}
-	
-	/*						*
-	 *	Plus / Minus Equals	*
-	 *						*/
-	public void xPlusEquals(float value)
-	{ this.x += value; }
-	
-	public void xMinusEquals(float value)
-	{ this.x -= value; }
-	
-	public void yPlusEquals(float value)
-	{ this.y += value; }
-	
-	public void yMinusEquals(float value)
-	{ this.y -= value; }
 	
 	/*				*
 	 *	Utilities	*

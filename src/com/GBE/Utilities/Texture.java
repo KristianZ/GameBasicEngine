@@ -38,8 +38,14 @@ public class Texture
 	public int getId()
 	{ return id; }
 	
+	/*					*
+	 *	Static Methods	*
+	 *					*/
 	public static void clear()
-	{ glBindTexture(GL_TEXTURE_2D, 0); }
+	{
+		glBindTexture(GL_TEXTURE_2D, 0);
+		glColor3f(0, 0, 0);
+	}
 	
 	public static void enable(boolean enabled)
 	{

@@ -3,6 +3,8 @@ package com.GBE.Utilities;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
+import com.GBE.Positions.Vector2f;
+
 public class Input
 {
 	private static boolean[] pressedKeys = new boolean[256];
