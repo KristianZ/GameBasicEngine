@@ -5,21 +5,14 @@ public class Position
 	private float x, y, z, yaw, pitch;
 	
 	public Position()
-	{
-		this.x 		= 0;
-		this.y		= 0;
-		this.z		= 0;
-		this.pitch	= 0;
-		this.yaw	= 0;
-	}
+	{ x = y = z = yaw = pitch = 0; }
 	
 	public Position(float x, float y, float z)
 	{
 		this.x 		= x;
 		this.y		= y;
 		this.z		= z;
-		this.pitch	= 0;
-		this.yaw	= 0;
+		yaw = pitch = 0;
 	}
 	
 	public Position(float x, float y, float z, float yaw, float pitch)
@@ -211,6 +204,9 @@ public class Position
 		float length = this.length();
 		return new Position(x / length, y / length, z / length);
 	}
+	
+	public void zero()
+	{ x = y = z = yaw = pitch = 0; }
 	
 	@Override
 	public String toString()

@@ -7,36 +7,38 @@ import java.nio.FloatBuffer;
 
 import org.lwjgl.BufferUtils;
 
-import com.GBE.Positions.Vertex;
+import com.GBE.Positions.Vector3f;
 
 public class Shape
 {
-	public static final int QUAD = GL_QUADS;
-	public static final int TRIANGLE = GL_TRIANGLES;
-	public static final int LINE = GL_LINES;
-	public static final int POINT = GL_POINTS;
-	public static final int POLYGON = GL_POLYGON;
+	public static final int POINT = 0;
+	public static final int LINE = 1;
+	public static final int TRIANGLE = 4;
+	public static final int QUAD = 7;
+	public static final int POLYGON = 9;
 	
 	private int shape;
 	private int vbo;
 	private int size;
+	private Color color;
 	
-	public Shape(int shape, Vertex[] vertices)
+	public Shape(int shape, Vector3f... vertices)
+	{ this(shape, new Color(), vertices); }
+	
+	public Shape(int shape, Color color, Vector3f... vertices)
 	{
 		this.shape = shape;
 		vbo = glGenBuffers();
-
 		size = vertices.length;
+		this.color = color;
 		
-		FloatBuffer buffer = BufferUtils.createFloatBuffer(vertices.length * Vertex.SIZE);
-		
+		FloatBuffer buffer = BufferUtils.createFloatBuffer(vertices.length * 3);
 		for(int i = 0; i < vertices.length; i++)
 		{
-			buffer.put(vertices[i].getPos().getX());
-			buffer.put(vertices[i].getPos().getY());
-			buffer.put(vertices[i].getPos().getZ());
-		}
-		
+			buffer.put(vertices[i].getX());
+			buffer.put(vertices[i].getY());
+			buffer.put(vertices[i].getZ());
+		}	
 		buffer.flip();
 		
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -44,15 +46,49 @@ public class Shape
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 	
+	public Shape(int shape, Texture texture, Vector3f... vertices)
+	{
+		
+	}
+	
+	public Shape(int shape, Color color, Texture texture, Vector3f... vectices)
+	{
+		
+	}
+	
+	public Color getColor()
+	{ return color; }
+	
+	private int rotate;
+	
+	public int getRotation()
+	{ return rotate; }
+	
+	public void rotate(int rotate)
+	{ this.rotate = rotate; }
+	
+	private Vector3f pos = new Vector3f();
+	
+	public void translate(Vector3f pos)
+	{ this.pos = pos; }
+	
 	public void draw()
 	{
-		Texture.clear();
+		glPushMatrix();
+		
+		color.bind();
+		
+		glRotatef(rotate, 1, 1, 1);
+		
+		glTranslatef(pos.getX(), pos.getY(), pos.getZ());
 		
 		glBindBuffer(GL_ARRAY_BUFFER, vbo);
-		glVertexPointer(Vertex.SIZE, GL_FLOAT, 0, 0L);
+		glVertexPointer(3, GL_FLOAT, 0, 0L);
 		
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glDrawArrays(shape, 0, size);
 		glDisableClientState(GL_VERTEX_ARRAY);
+		
+		glPopMatrix();
 	}
 }

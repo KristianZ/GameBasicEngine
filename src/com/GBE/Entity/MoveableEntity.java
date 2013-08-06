@@ -33,29 +33,23 @@ public abstract class MoveableEntity extends StillEntity
 		falling = false;
 	}
 	
-	public float getVelocityX() {
-		return velocityX;
-	}
+	public float getVelocityX()
+	{ return velocityX; }
 
-	public float getVelocityY() {
-		return velocityY;
-	}
+	public float getVelocityY()
+	{ return velocityY; }
 
-	public float getVelocityZ() {
-		return velocityZ;
-	}
+	public float getVelocityZ()
+	{ return velocityZ; }
 	
-	public void setVelocityX(float velocityX) {
-		this.velocityX = velocityX;
-	}
+	public void setVelocityX(float velocityX)
+	{ this.velocityX = velocityX; }
 
-	public void setVelocityY(float velocityY) {
-		this.velocityY = velocityY;
-	}
+	public void setVelocityY(float velocityY)
+	{ this.velocityY = velocityY; }
 
-	public void setVelocityZ(float velocityZ) {
-		this.velocityZ = velocityZ;
-	}
+	public void setVelocityZ(float velocityZ)
+	{ this.velocityZ = velocityZ; }
 
 	/*			*
 	 *	Getters	*

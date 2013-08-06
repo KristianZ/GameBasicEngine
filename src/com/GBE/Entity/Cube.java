@@ -2,7 +2,6 @@ package com.GBE.Entity;
 
 import com.GBE.Positions.Position;
 import com.GBE.Positions.Vector3f;
-import com.GBE.Positions.Vertex;
 import com.GBE.Utilities.Shape;
 
 public class Cube extends StillEntity
@@ -17,49 +16,70 @@ public class Cube extends StillEntity
 		float y = pos.getY();
 		float z = pos.getZ();
 		
-		Vertex[] vertices = new Vertex[]
+		Vector3f[] vertices = new Vector3f[]
 			{
 				// Left //
-				new Vertex(new Vector3f(x, y, z)),
-				new Vertex(new Vector3f(x, y, z + length)),
-				new Vertex(new Vector3f(x, y + height, z + length)),
-				new Vertex(new Vector3f(x, y + height, z)),
+				new Vector3f(x, y, z),
+				new Vector3f(x, y, z + length),
+				new Vector3f(x, y + height, z + length),
+				new Vector3f(x, y + height, z),
 		
 				// Right //
-				new Vertex(new Vector3f(x + width, y, z)),
-				new Vertex(new Vector3f(x + width, y, z + length)),
-				new Vertex(new Vector3f(x + width, y + height, z + length)),
-				new Vertex(new Vector3f(x + width, y + height, z)),
+				new Vector3f(x + width, y, z),
+				new Vector3f(x + width, y, z + length),
+				new Vector3f(x + width, y + height, z + length),
+				new Vector3f(x + width, y + height, z),
 		
 				// Top //
-				new Vertex(new Vector3f(x, y, z)),
-				new Vertex(new Vector3f(x + width, y, z)),
-				new Vertex(new Vector3f(x + width, y, z + length)),
-				new Vertex(new Vector3f(x, y, z + length)),
+				new Vector3f(x, y, z),
+				new Vector3f(x + width, y, z),
+				new Vector3f(x + width, y, z + length),
+				new Vector3f(x, y, z + length),
 		
 				// Bottom //
-				new Vertex(new Vector3f(x, y + height, z)),
-				new Vertex(new Vector3f(x + width, y + height, z)),
-				new Vertex(new Vector3f(x + width, y + height, z + length)),
-				new Vertex(new Vector3f(x, y + height, z + length)),
+				new Vector3f(x, y + height, z),
+				new Vector3f(x + width, y + height, z),
+				new Vector3f(x + width, y + height, z + length),
+				new Vector3f(x, y + height, z + length),
 		
 				// Front //
-				new Vertex(new Vector3f(x, y, z)),
-				new Vertex(new Vector3f(x + width, y, z)),
-				new Vertex(new Vector3f(x + width, y + height, z)),
-				new Vertex(new Vector3f(x, y + height, z)),
+				new Vector3f(x, y, z),
+				new Vector3f(x + width, y, z),
+				new Vector3f(x + width, y + height, z),
+				new Vector3f(x, y + height, z),
 		
 				// Back //
-				new Vertex(new Vector3f(x, y, z + length)),
-				new Vertex(new Vector3f(x + width, y, z + length)),
-				new Vertex(new Vector3f(x + width, y + height, z + length)),
-				new Vertex(new Vector3f(x, y + height, z + length))
+				new Vector3f(x, y, z + length),
+				new Vector3f(x + width, y, z + length),
+				new Vector3f(x + width, y + height, z + length),
+				new Vector3f(x, y + height, z + length)
 			};
 		
 		shape = new Shape(Shape.QUAD, vertices);
 	}
 
+	private boolean change = true;
+	private int i = 0;
+	
 	@Override
 	public void render()
-	{ shape.draw(); }
+	{
+		
+		if(i <= 40)
+		{
+			i++;
+			shape.getColor().clear();
+			if(change) shape.getColor().setRed(1);
+			else shape.getColor().setBlue(1);
+		}
+		else
+		{
+			change = !(change);
+			i = 0;
+		}
+		
+		//shape.translate(pos.toVector3f());
+		shape.rotate(shape.getRotation() + 1);
+		shape.draw();
+	}
 }

@@ -10,7 +10,7 @@ import com.GBE.Utilities.Shape;
 public class Camera extends MoveableEntity
 {
 	public Camera(float width, float height, float length)
-	{ super(width, height, length); }
+	{ super(width, height, length, new Position(0, 2, 0)); }
 	
 	public Camera(float width, float height, float length, Position pos)
 	{ super(width, height, length, pos); }
@@ -26,9 +26,6 @@ public class Camera extends MoveableEntity
 		glPushMatrix();
 			glPointSize(10);
 			for(Shape shape : shapes) shape.draw();
-			/*glBegin(GL_POINTS);
-				glVertex3f(10, -5, -10);
-			glEnd();*/
 		glPopMatrix();
 		
 		glRotatef(pos.getPitch(), 1, 0, 0);

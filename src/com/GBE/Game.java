@@ -88,11 +88,11 @@ public abstract class Game
 		System.exit(0);
 	}	
 	
-	public abstract void init();
+	protected abstract void init();
 	
-	public abstract void loop();
+	protected abstract void loop();
 	
-	public abstract void close();
+	protected abstract void close();
 	
 	/*			*
 	 *	Getters	*

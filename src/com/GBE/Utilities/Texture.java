@@ -32,24 +32,19 @@ public class Texture
 		}
 	}
 	
-	public void bind()
-	{ glBindTexture(GL_TEXTURE_2D, id); }
-	
 	public int getId()
 	{ return id; }
 	
-	/*					*
-	 *	Static Methods	*
-	 *					*/
-	public static void clear()
-	{
-		glBindTexture(GL_TEXTURE_2D, 0);
-		glColor3f(0, 0, 0);
-	}
+	public void bind()
+	{ glBindTexture(GL_TEXTURE_2D, id); }
 	
 	public static void enable(boolean enabled)
 	{
 		if(enabled) glEnable(GL_TEXTURE_2D);
-		else glDisable(GL_TEXTURE_2D);
+		else
+		{
+			glDisable(GL_TEXTURE_2D);
+			glBindTexture(GL_TEXTURE_2D, 0);
+		}
 	}
 }

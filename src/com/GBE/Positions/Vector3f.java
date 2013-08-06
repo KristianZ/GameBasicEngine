@@ -4,6 +4,9 @@ public class Vector3f
 {
 	private float x, y, z;
 	
+	public Vector3f()
+	{ x = y = z = 0; }
+	
 	public Vector3f(float x, float y, float z)
 	{
 		this.x = x;
@@ -177,6 +180,9 @@ public class Vector3f
 		float length = this.length();
 		return new Vector3f(x / length, y / length, z / length);
 	}
+	
+	public void zero()
+	{ x = y = z = 0; }
 	
 	@Override
 	public String toString()
