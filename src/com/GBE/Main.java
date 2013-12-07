@@ -1,24 +1,20 @@
 package com.GBE;
 
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
-
 import com.GBE.Entity.Camera;
 import com.GBE.Entity.Cube;
 import com.GBE.Entity.Floor;
 import com.GBE.Positions.Position;
 import com.GBE.Positions.Vector3f;
-import com.GBE.Utilities.Input;
 import com.GBE.Utilities.Shape;
 
 public class Main extends Game
 {
+	public static void main(String[] args)
+	{ new Main(850, 480, "Game Engine");}
+
 	public Main(int width, int height, String title)
 	{ super(width, height, title); }
 
-	public static void main(String[] args)
-	{ new Main(850, 480, "Game Engine");}
-	
 	private Camera camera;
 	private Cube cube;
 	private Floor floor;
@@ -36,26 +32,13 @@ public class Main extends Game
 		camera.addShapeToScreen(pointer);
 		camera.addShapeToScreen(point1);
 		camera.addShapeToScreen(point2);
+
+		this.getKeyManager().registerKeyListener(new Listener(camera));
 	}
 
 	@Override
 	protected void loop()
-	{	
-		if(Input.isKeyHeld(Keyboard.KEY_W)) camera.moveForward();
-		if(Input.isKeyHeld(Keyboard.KEY_S)) camera.moveBackward();
-		if(Input.isKeyHeld(Keyboard.KEY_A)) camera.moveLeft();
-		if(Input.isKeyHeld(Keyboard.KEY_D)) camera.moveRight();
-		if(Input.isKeyHeld(Keyboard.KEY_SPACE)) camera.jump();
-
-		if(Input.isMousePressed(0)) Input.grabMouse(true);
-		else if(Input.isMousePressed(1)) Input.grabMouse(false);
-
-		if(Input.isGrabbedMouse()) camera.rotate(Mouse.getDX() / 4, -Mouse.getDY() / 4);
-		
-		if(Input.isKeyPressed(Keyboard.KEY_UP)) camera.setVelocityX(0.5f);
-		if(Input.isKeyPressed(Keyboard.KEY_DOWN)) camera.setVelocityX(-0.5f);
-		if(Input.isKeyPressed(Keyboard.KEY_RIGHT)) camera.setVelocityZ(0.5f);
-		if(Input.isKeyPressed(Keyboard.KEY_LEFT)) camera.setVelocityZ(-0.5f);
+	{
 		camera.update();
 		
 		camera.render();

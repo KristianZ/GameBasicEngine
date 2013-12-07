@@ -2,54 +2,45 @@ package com.GBE.Entity;
 
 import com.GBE.Game;
 import com.GBE.Positions.Position;
+import com.GBE.Positions.Vector3f;
 import com.GBE.Utilities.GameClock;
 
 public abstract class MoveableEntity extends StillEntity
 {
-	protected float speed, groundHeight, velocityX, velocityY, velocityZ;
+	protected Vector3f velocity;
+	protected float speed, groundHeight;
 	protected boolean jumping, falling;
 	
 	public MoveableEntity(float width, float height, float length)
-	{
-		super(width, height, length);
-		this.speed = 0.01f;
-		groundHeight = pos.getY();
-		velocityX = 0;
-		velocityY = 0;
-		velocityZ = 0;
-		jumping = false;
-		falling = false;
-	}
+	{ this(width, height, length, new Position()); }
 
 	public MoveableEntity(float width, float height, float length, Position pos)
     {
 		super(width, height, length, pos);
 		this.speed = 0.01f;
 		groundHeight = pos.getY();
-		velocityX = 0;
-		velocityY = 0;
-		velocityZ = 0;
+		velocity = new Vector3f();
 		jumping = false;
 		falling = false;
 	}
 	
 	public float getVelocityX()
-	{ return velocityX; }
+	{ return velocity.getX(); }
 
 	public float getVelocityY()
-	{ return velocityY; }
+	{ return velocity.getY(); }
 
 	public float getVelocityZ()
-	{ return velocityZ; }
+	{ return velocity.getZ(); }
 	
-	public void setVelocityX(float velocityX)
-	{ this.velocityX = velocityX; }
+	public void setVelocityX(float x)
+	{ this.velocity.setX(x); }
 
-	public void setVelocityY(float velocityY)
-	{ this.velocityY = velocityY; }
+	public void setVelocityY(float y)
+	{ this.velocity.setY(y); }
 
-	public void setVelocityZ(float velocityZ)
-	{ this.velocityZ = velocityZ; }
+	public void setVelocityZ(float z)
+	{ this.velocity.setZ(z); }
 
 	/*			*
 	 *	Getters	*
@@ -124,23 +115,23 @@ public abstract class MoveableEntity extends StillEntity
 		if(!(falling && jumping) && pos.getY() <= groundHeight)
 		{
 			jumping = true;
-			velocityY = 0.2f;
+			velocity.setY(0.2f);
 		}
 	}
 	
 	public void update()
 	{
-		if(Math.abs(velocityX) >= 0.1)
+		if(Math.abs(velocity.getX()) >= 0.1)
 		{
-			if(velocityX < 0) velocityX += Game.getGravity();
-			else velocityX -= Game.getGravity();
+			if(velocity.getX() < 0) velocity.setX(velocity.getX() + Game.getGravity());
+			else velocity.setX(velocity.getX() - Game.getGravity());
 		}
-		else velocityX = 0;
+		else velocity.setX(0);
 		
 		if(jumping)
 		{
-			velocityY -= Game.getGravity();
-			if(velocityY <= groundHeight)
+			velocity.setY(velocity.getY() - Game.getGravity());
+			if(velocity.getY() <= groundHeight)
 			{
 				jumping = false;
 				falling = true;
@@ -148,22 +139,20 @@ public abstract class MoveableEntity extends StillEntity
 		}
 		else if(falling)
 		{
-			velocityY -= Game.getGravity();
+			velocity.setY(velocity.getY() - Game.getGravity());
 			if(pos.getY() <= groundHeight)
 			{
 				falling = false;
-				velocityY = 0;
+				velocity.setY(0);
 			}
 		}
-		
-		if(Math.abs(velocityZ) >= 0.1)
+
+		if(Math.abs(velocity.getZ()) >= 0.1)
 		{
-			if(velocityZ < 0) velocityZ += Game.getGravity();
-			else velocityZ -= Game.getGravity();
+			if(velocity.getZ() < 0) velocity.setZ(velocity.getZ() + Game.getGravity());
+			else velocity.setZ(velocity.getZ() - Game.getGravity());
 		}
-		else velocityZ = 0;
-		
-		pos.add(velocityX, velocityY, velocityZ);
+		else velocity.setZ(0);
 	}
 	
 	@Override

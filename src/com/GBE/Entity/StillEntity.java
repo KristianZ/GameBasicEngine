@@ -1,25 +1,19 @@
 package com.GBE.Entity;
 
 import com.GBE.Positions.Position;
+import com.GBE.Positions.Vector3f;
 
 public abstract class StillEntity implements Entity
 {
+	protected Vector3f size;
 	protected Position pos;
-	protected float width, height, length;
 	
 	public StillEntity(float width, float height, float length)
-	{
-		this.width	= width;
-		this.height	= height;
-		this.length	= length;
-		this.pos	= new Position();
-	}
+	{ this(width, height, length, new Position()); }
 	
 	public StillEntity(float width, float height, float length, Position pos)
 	{
-		this.width	= width;
-		this.length	= length;
-		this.height	= height;
+		this.size	= new Vector3f(width, height, length);
 		this.pos	= pos;
 	}
 	
@@ -28,15 +22,15 @@ public abstract class StillEntity implements Entity
 	 *			*/
 	@Override
 	public float getWidth()
-	{ return width; }
+	{ return size.getX(); }
 	
 	@Override
 	public float getHeight()
-	{ return height; }
+	{ return size.getY(); }
 	
 	@Override
 	public float getLength()
-	{ return length; }
+	{ return size.getZ(); }
 	
 	@Override
 	public Position getPos()

@@ -1,0 +1,160 @@
+package com.GBE.Input;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Input
+{
+	/*					*
+	 *	Possible Inputs	*
+	 *					*/
+	public static final int NONE			= 0;
+	public static final int ESCAPE			= 1;
+	public static final int KEY_1			= 2;
+	public static final int KEY_2			= 3;
+	public static final int KEY_3			= 4;
+	public static final int KEY_4			= 5;
+	public static final int KEY_5			= 6;
+	public static final int KEY_6			= 7;
+	public static final int KEY_7			= 8;
+	public static final int KEY_8			= 9;
+	public static final int KEY_9			= 10;
+	public static final int KEY_0			= 11;
+	public static final int MINUS			= 12;
+	public static final int KEY_EQUALS		= 13;
+	public static final int BACK			= 14;
+	public static final int TAB				= 15;
+	public static final int Q				= 16;
+	public static final int W				= 17;
+	public static final int E				= 18;
+	public static final int R				= 19;
+	public static final int T				= 20;
+	public static final int Y				= 21;
+	public static final int U				= 22;
+	public static final int I				= 23;
+	public static final int O				= 24;
+	public static final int P				= 25;
+	public static final int LEFT_BRACKET	= 26;
+	public static final int RIGHT_BRACKET	= 27;
+	public static final int RETURN			= 28;
+	public static final int LEFT_CONTROL 	= 29;
+	public static final int A				= 30;
+	public static final int S				= 31;
+	public static final int D				= 32;
+	public static final int F				= 33;
+	public static final int G				= 34;
+	public static final int H				= 35;
+	public static final int J				= 36;
+	public static final int K				= 37;
+	public static final int L				= 38;
+	public static final int SEMICOLON		= 39;
+	public static final int APOSTROPHE		= 40;
+	public static final int ACCENT_GRAVE	= 41;
+	public static final int LEFT_SHIFT		= 42;
+	public static final int BACKSLASH		= 43;
+	public static final int Z				= 44;
+	public static final int X				= 45;
+	public static final int C				= 46;
+	public static final int V				= 47;
+	public static final int B				= 48;
+	public static final int N				= 49;
+	public static final int M				= 50;
+	public static final int COMMA			= 51;
+	public static final int PERIOD			= 52;
+	public static final int SLASH			= 53;
+	public static final int RIGHT_SHIFT		= 54;
+	public static final int MULTIPLY		= 55;
+	public static final int LEFT_ALT		= 56;
+	public static final int SPACE			= 57;
+	public static final int CAPITAL			= 58;
+	public static final int F1				= 59;
+	public static final int F2				= 60;
+	public static final int F3				= 61;
+	public static final int F4				= 62;
+	public static final int F5				= 63;
+	public static final int F6				= 64;
+	public static final int F7				= 65;
+	public static final int F8				= 66;
+	public static final int F9				= 67;
+	public static final int F10				= 68;
+	public static final int NUM_LOCK		= 69;
+	public static final int SCROLL			= 70;
+	public static final int NUMPAD_7		= 71;
+	public static final int NUMPAD_8		= 72;
+	public static final int NUMPAD_9		= 73;
+	public static final int SUBTRACT		= 74;
+	public static final int NUMPAD_4		= 75;
+	public static final int NUMPAD_5		= 76;
+	public static final int NUMPAD_6		= 77;
+	public static final int ADD				= 78;
+	public static final int NUMPAD_1		= 79;
+	public static final int NUMPAD_2		= 80;
+	public static final int NUMPAD_3		= 81;
+	public static final int NUMPAD_0		= 82;
+	public static final int DECIMAL			= 83;
+	public static final int F11				= 87;
+	public static final int F12				= 88;
+	public static final int F13				= 100;
+	public static final int F14				= 101;
+	public static final int F15				= 102;
+	public static final int F16				= 103;
+	public static final int F17				= 104;
+	public static final int F18				= 105;
+	public static final int KANA			= 112;
+	public static final int F19				= 113;
+	public static final int CONVERT			= 121;
+	public static final int NO_CONVERT		= 123;
+	public static final int YEN				= 125;
+	public static final int NUMPAD_EQUALS 	= 141;
+	public static final int CIRCUMFLEX		= 144;
+	public static final int AT				= 145;
+	public static final int COLON			= 146;
+	public static final int UNDERLINE		= 147;
+	public static final int KANJI			= 148;
+	public static final int STOP			= 149;
+	public static final int AX				= 150;
+	public static final int UNLABELLED		= 151;
+	public static final int NUMPAD_RETURN 	= 156;
+	public static final int RIGHT_CONTROL 	= 157;
+	public static final int SECTION		 	= 167;
+	public static final int NUMPAD_COMMA 	= 179;
+	public static final int DIVIDE		 	= 181;
+	public static final int SYSRQ		 	= 183;
+	public static final int RIGHT_ALT	 	= 154;
+	public static final int FUNCTION	 	= 196;
+	public static final int PAUSE		 	= 197;
+	public static final int HOME		 	= 199;
+	public static final int UP			 	= 200;
+	public static final int PRIOR		 	= 201;
+	public static final int LEFT		 	= 203;
+	public static final int RIGHT		 	= 205;
+	public static final int END			 	= 207;
+	public static final int DOWN		 	= 208;
+	public static final int NEXT		 	= 209;
+	public static final int INSERT		 	= 210;
+	public static final int DELETE		 	= 211;
+	public static final int CLEAR		 	= 218;
+	public static final int LEFT_META		= 219;
+	public static final int RIGHT_META		= 220;
+	public static final int APPS		 	= 221;
+	public static final int POWER		 	= 222;
+	public static final int SLEEP		 	= 223;
+
+	public static final int MOUSE_LEFT		= 256;
+	public static final int MOUSE_RIGHT		= 257;
+	public static final int MOUSE_MIDDLE	= 258;
+	public static final int MOUSE_BUTTON_4	= 259;
+	public static final int MOUSE_BUTTON_5	= 260;
+	public static final int MOUSE_BUTTON_6	= 261;
+	public static final int MOUSE_BUTTON_7	= 262;
+	public static final int MOUSE_BUTTON_8	= 263;
+	public static final int MOUSE_MOVE		= 264;
+
+	/*						*
+	 *	Interface Options	*
+	 *						*/
+	int key();
+
+	KeyPriority priority() default KeyPriority.NORMAL;
+}
